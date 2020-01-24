@@ -3,6 +3,7 @@
 # This script changes network Location based on the name of Wi-Fi network.
 DEFAULT_LOCATION='Automatic'
 ENABLE_NOTIFICATIONS=1
+RUN_SCRIPT=1
 APP_SUPPORT_DIR="/Library/Application Support/LocationChanger"
 DOTFILE_DIR="$HOME/.locations"
 CONFIG_FILE="$DOTFILE_DIR/LocationChanger.conf"
@@ -59,6 +60,10 @@ if [ -e "${CONFIG_FILE}" ]; then
     if [ "$VALUE" != "" ]; then
         DEFAULT_LOCATION="$VALUE"
     fi
+    VALUE=$(parse_config General | grep RUN_SCRIPT= | cut -d = -f 2)
+    if [ "$VALUE" != "" ]; then
+        RUN_SCRIPT="$VALUE"
+    fi
 fi
 
 # escape the SSID string for better string handling in our logic below
@@ -104,21 +109,34 @@ elif [ -z "${NEW_LOCATION}" ]; then
 fi
 
 if [ "${NEW_LOCATION}" != "" ]; then
+
+    run_script() {
+      SCRIPT="${SCRIPT_DIR}/${NEW_LOCATION}"
+      if [[ -f "${SCRIPT}" ]]; then
+        ts "Running script: '${SCRIPT}'"
+        $(${SCRIPT} ${SSID})
+      else
+        ts "${SCRIPT} script not found."
+      fi
+    }
+
     if [ "${NEW_LOCATION}" != "${CURRENT_LOCATION}" ]; then
         ts "Changing the Location to '${NEW_LOCATION}'"
         ts $(scselect "${NEW_LOCATION}")
         if [ ${?} -ne 0 ]; then
             NOTIFICATION_STRING="Something went wrong trying to automatically switch Location. Please consult the log at: ${LOGFILE}"
         fi
-        SCRIPT="${SCRIPT_DIR}/${NEW_LOCATION}"
-        if [ -f "${SCRIPT}" ]; then
-            ts "Running script: '${SCRIPT}'"
-            $(${SCRIPT} ${SSID})
+
+        if [ ${RUN_SCRIPT} -ge 1 ]; then
+            run_script
         else
-          ts "${SCRIPT} script not found."
+          ts "Running script disabled."
         fi
     else
         ts "System is already set to the requested Location '${NEW_LOCATION}'. No change required."
+        if [[ ${RUN_SCRIPT} -eq 2 ]]; then
+          run_script
+        fi
         # only notify on this event if verbose notifications are enabled
         if [ ${ENABLE_NOTIFICATIONS} -eq 2 ]; then
             NOTIFICATION_STRING="Location already set to '${NEW_LOCATION}'; not changing"
