@@ -13,5 +13,6 @@
         <string>/Library/Preferences/SystemConfiguration/com.apple.wifi.message-tracer.plist</string>
     </array>
     <key>RunAtLoad</key><true/>
+    <key>KeepAlive</key><true/>
 </dict>
 </plist>
