@@ -4,7 +4,7 @@
 DEFAULT_LOCATION='Automatic'
 ENABLE_NOTIFICATIONS=1
 RUN_SCRIPT=1
-APP_SUPPORT_DIR="/Library/Application Support/LocationChanger"
+# APP_SUPPORT_DIR="/Library/Application Support/LocationChanger"
 DOTFILE_DIR="$HOME/.locations"
 CONFIG_FILE="$DOTFILE_DIR/LocationChanger.conf"
 SCRIPT_DIR="$DOTFILE_DIR/Scripts" # directory for scripts attached to Locations
@@ -143,14 +143,14 @@ if [ "${NEW_LOCATION}" != "" ]; then
         ts "System is already set to the requested Location '${NEW_LOCATION}'. No change required."
         # only notify on this event if verbose notifications are enabled
         if [ ${ENABLE_NOTIFICATIONS} -eq 2 ]; then
-            NOTIFICATION_STRING="Location already set to '${NEW_LOCATION}'; not changing"
+            NOTIFICATION_STRING="Location already set to '${NEW_LOCATION}'. Not changing"
         # otherwise, disable the notification for this run
         elif [ ${ENABLE_NOTIFICATIONS} -eq 1 ]; then
             ENABLE_NOTIFICATIONS=0
         fi
         if [[ ${RUN_SCRIPT} -eq 2 ]]; then
           if [ ${ENABLE_NOTIFICATIONS} -eq 2 ]; then
-              NOTIFICATION_STRING="Location already set to '${NEW_LOCATION}'; running script"
+              NOTIFICATION_STRING="Location already set to '${NEW_LOCATION}'. Running script"
           fi
           run_script
         fi

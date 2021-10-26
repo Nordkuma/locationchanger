@@ -9,15 +9,13 @@ additional actions when changing the Location.
 
 ## Installation & Updates
 
-```
-curl -L https://github.com/sashagavrilov/locationchanger/raw/master/locationchanger.sh | bash
-```
+1. Clone/Download this project: `git clone https://github.com/dnnsmnstrr/locationchanger.git`
+1. `cd locationchanger`
+1. `./install.sh`
+
+This will install the script to the configured `INSTALL_DIR` (usr/local/bin by default) and copy the configuration files to the specified locations. The `.plist`-file sets up a LaunchAgent that will run the script on network changes.
 
 You must be an Administrator to install *Location Changer* and it will ask you for your password.
-The `locationchanger` executable is installed in `/usr/local/bin` by default. If you would like
-to install it elsewhere, please download the source and edit the `INSTALL_DIR` variable (on Line 3)
-prior to installation.
-
 
 ## Basic Usage
 
@@ -136,3 +134,7 @@ Sample output:
 [2018-03-05 06:23:18] CurrentSet updated to 3BA418DE-3C72-2EAB-A8A6-B71C42189204 (DHCP)
 [2018-03-05 06:23:19] Running script: '/Users/username/.locations/DHCP'
 ```
+
+## Uninstall
+
+Running `./uninstall.sh` will remove all the copied files. Be sure to check the paths if you modified them in the install script.

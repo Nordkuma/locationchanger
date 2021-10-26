@@ -19,12 +19,15 @@ function copyConfig() {
 }
 
 function copyPlist() {
+  sudo -v
   mkdir -p "${LAUNCH_AGENTS_DIR}"
   echo "Copying Plist"
   cp LocationChanger.plist "$LAUNCH_AGENTS_DIR"
 
+  launchctl unload ${PLIST_NAME}
   launchctl load ${PLIST_NAME}
 }
+
 
 case $1 in
   "-p" | "plist" )
@@ -51,7 +54,6 @@ case $1 in
     exit 0
     ;;
   *)
-  sudo -v
   copyScript
   if [ ! -e "${LAUNCH_AGENTS_DIR}/LocationChanger.plist" ]; then
     copyPlist
