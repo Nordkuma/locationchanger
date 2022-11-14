@@ -63,7 +63,12 @@ Additionally, do not enclose the SSID or Location in quotes.
 
 The `Manual` section contains a list of Location names for which autodetection should be ignored.
 
-```bash
+```
+[General]
+DEFAULT_LOCATION=Automatic
+ENABLE_NOTIFICATIONS=1
+ENABLE_SCRIPTS=1
+
 [Automatic]
 SSID=Location
 Home Wi-Fi=Home
@@ -72,6 +77,17 @@ SSID With Spaces=Location Name With Spaces
 [Manual]
 Wi-Fi Only
 ```
+
+### Notifications
+
+*Location Changer* includes support for notifications through the macOS Notification system (via the AppleScript/osascript interface).
+By default, *Location Changer* will display a notification whenever the Location is changed.
+This behavior can be changed by editing the `ENABLE_NOTIFICATIONS` variable in the config file.
+The following values are accepted:
+
+* `0` - disable notifications
+* `1` - enable notifications whenever the Location is changed
+* `2` - enable notifications whenever a Wi-Fi network is joined, regardless of if the Location was changed
 
 ### Running Custom Scripts When Changing Locations
 
@@ -116,17 +132,6 @@ exec 2>&1
 # Don’t require password immediately after sleep or screen saver begins
 osascript -e 'tell application "System Events" to set require password to wake of security preferences to false'
 ```
-
-### Notifications
-
-*Location Changer* includes support for notifications through the macOS Notification system (via the AppleScript/osascript interface).
-By default, *Location Changer* will display a notification whenever the Location is changed.
-This behavior can be changed by editing the `ENABLE_NOTIFICATIONS` variable in the config file.
-The following values are accepted:
-
-* `0` - disable notifications
-* `1` - enable notifications whenever the Location is changed
-* `2` - enable notifications whenever a Wi-Fi network is joined, regardless of if the Location was changed
 
 ## Troubleshooting
 
