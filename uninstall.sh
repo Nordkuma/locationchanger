@@ -20,4 +20,4 @@ rm "$PLIST_FILE"
 rm -rf "$DOTFILE_DIR"
 rm -rf "${HOME}/Library/Logs/LocationChanger.log"
 
-echo "Uninstallation complete."
+echo "Uninstall complete."
