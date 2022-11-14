@@ -9,7 +9,7 @@ additional actions when changing the Location.
 
 ## Installation & Updates
 
-1. Clone/Download this project: `git clone https://github.com/dnnsmnstrr/locationchanger.git`
+1. Clone/Download this project: `git clone https://github.com/srkm1a1/locationchanger.git`
 1. `cd locationchanger`
 1. `./install.sh`
 
@@ -20,7 +20,7 @@ You must be an Administrator to install *Location Changer* and it will ask you f
 ## Basic Usage
 
 Basic usage of *Location Changer* involves having Location names that match your Wi-Fi Network SSIDs
-(e.g. a macOS Location with the name `Home Wi-Fi` will correspond to the Wi-Fi Network SSID `Home WiFi`).
+(e.g. a macOS Location with the name `Home Wi-Fi` will correspond to the Wi-Fi Network SSID `Home Wi-Fi`).
 When joining a Wi-Fi network, *Location Changer* will look for a Location whose name matches that of the
 SSID and will switch accordingly.
 
@@ -47,10 +47,10 @@ One example might be if your home Wi-Fi network is broadcasted on both 2.4GHz an
 and `Home Wi-Fi 5G`, respectively. Instead of maintaining Locations for each SSID, a user can manually
 configure the same Location to be used with both.
 
-*Location Changer* can also be disabled for certain locations. This is useful, e.g., if you want
+*Location Changer* can also be disabled for certain Locations. This is useful, e.g., if you want
 to set Location manually and don't want it to be automatically changed back.
 
-Configuration happens in `${HOME}/Library/Application Support/LocationChanger/LocationChanger.conf` by default.
+Configuration happens in `${HOME}/.locations/LocationChanger.conf` by default.
 On installation a default config file is generated.
 The config file is in ini-format and contains the sections: `General` , `Automatic` and `Manual`.
 
@@ -81,15 +81,21 @@ Wi-Fi Only
 *Location Changer* includes support for running custom scripts when switching Locations. Scripts
 should be:
 
-* installed into the directory `${HOME}/Library/Application Support/LocationChanger`
+* installed into the directory `${HOME}/.locations/Scripts`
 * named identically to the Location (e.g. `Home Wi-Fi` and not `Home Wi-Fi.sh`; if using manually configured Locations, please ensure the name matches the Location and not the SSID)
 * be executable
 
-When the script is run, the SSID gets passed as an argument, so can use it with `$1`
+When the script is run, the SSID gets passed as an argument, so can use it with `$1`.
+
+By default, *Location Changer* will run custom scripts on Location change. This behavior can be changed by editing the `RUN_SCRIPT` variable in the config file. The following values are accepted:
+
+* `0` - disable custom scripts
+* `1` - enable custom scripts whenever the Location is changed
+* `2` - enable custom scripts whenever a Wi-Fi network is joined, regardless of if the Location was changed
 
 #### Examples
 
-You may want to set your computer to require a password to unlock while at work. By creating a script that matches the work Location name (e.g. `${HOME}/Library/Application Support/LocationChanger/Work`), this script can perform that configuration automatically when changing to the `Work` Location.
+You may want to set your computer to require a password to unlock while at work. By creating a script that matches the work Location name (e.g. `${HOME}/.locations/Scripts/Work`), this script can perform that configuration automatically when changing to the `Work` Location.
 
 ```bash
 #!/usr/bin/env bash
@@ -99,7 +105,7 @@ exec 2>&1
 osascript -e 'tell application "System Events" to set require password to wake of security preferences to true'
 ```
 
-You may also want to create a script that reverses those changes when you're at home, so you don't have to enter your password to unlock your computer. You can save this as `${HOME}/Library/Application Support/LocationChanger/Home` if your home's SSID is `Home` or you have manually configured the `Home` Location to be used for your home's Wi-Fi SSID. Alternatively, it could be saved to your default Location (`Automatic`, by default) if using the default location at home: `${HOME}/Library/Application Support/LocationChanger/Automatic`
+You may also want to create a script that reverses those changes when you're at home, so you don't have to enter your password to unlock your computer. You can save this as `${HOME}/.locations/Scripts/Home` if your home's SSID is `Home` or you have manually configured the `Home` Location to be used for your home's Wi-Fi SSID. Alternatively, it could be saved to your default Location (`Automatic`, by default) if using the default Location at home: `${HOME}/.locations/Scripts/Automatic`
 
 ```bash
 #!/usr/bin/env bash

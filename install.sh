@@ -1,33 +1,33 @@
 #!/bin/bash
 
-INSTALL_DIR=/usr/local/bin
-SCRIPT_NAME=locationchanger
-LAUNCH_AGENTS_DIR=$HOME/Library/LaunchAgents
-PLIST_NAME=$LAUNCH_AGENTS_DIR/LocationChanger.plist
-APP_SUPPORT_DIR="$HOME/.locations" #/Library/Application Support/LocationChanger"
+INSTALL_DIR="/usr/local/bin"
+SCRIPT_FILE="locationchanger"
+LAUNCH_AGENTS_DIR="${HOME}/Library/LaunchAgents"
+PLIST_FILE="${LAUNCH_AGENTS_DIR}/LocationChanger.plist"
+DOTFILE_DIR="${HOME}/.locations"
 
 function copyScript() {
   echo "Copying script and making it executable"
-  sudo chmod +x ${SCRIPT_NAME}
-  sudo cp "$SCRIPT_NAME" "$INSTALL_DIR"
+  sudo chmod +x "$SCRIPT_FILE"
+  sudo cp "$SCRIPT_FILE" "$INSTALL_DIR"
 }
 
 function copyConfig() {
-  mkdir -p "${APP_SUPPORT_DIR}"
+  mkdir -p "$DOTFILE_DIR"
   echo "Copying Config"
-  cp LocationChanger.conf "$APP_SUPPORT_DIR"
+  cp "LocationChanger.conf" "$DOTFILE_DIR"
 }
 
 function copyPlist() {
   sudo -v
-  mkdir -p "${LAUNCH_AGENTS_DIR}"
+  mkdir -p "$LAUNCH_AGENTS_DIR"
   echo "Copying Plist"
-  cp LocationChanger.plist "$LAUNCH_AGENTS_DIR"
+  sudo chmod 664 "LocationChanger.plist"
+  cp "LocationChanger.plist" "$LAUNCH_AGENTS_DIR"
 
-  launchctl unload ${PLIST_NAME}
-  launchctl load ${PLIST_NAME}
+  launchctl unload "$PLIST_FILE"
+  launchctl load "$PLIST_FILE"
 }
-
 
 case $1 in
   "-p" | "plist" )
@@ -45,10 +45,10 @@ case $1 in
   "-o" | "open" )
     case $2 in
       "plist" )
-        open -R $PLIST_NAME
+        open -R "$PLIST_FILE"
         ;;
       "conf" )
-        open -R $APP_SUPPORT_DIR
+        open -R "$DOTFILE_DIR"
         ;;
     esac
     exit 0
@@ -61,7 +61,7 @@ case $1 in
   ;;
 esac
 
-if [ -e "${APP_SUPPORT_DIR}/LocationChanger.conf" ]; then
+if [ -e "${DOTFILE_DIR}/LocationChanger.conf" ]; then
   echo "Existing config found. Do you want to overwrite it? (y/n)"
   read reply
   if [ "$reply" = "y" ]; then
