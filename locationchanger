@@ -4,21 +4,21 @@
 DEFAULT_LOCATION='Automatic'
 ENABLE_NOTIFICATIONS=1
 ENABLE_SCRIPTS=1
-DOTFILE_DIR="$HOME/.locations"
-CONFIG_FILE="$DOTFILE_DIR/LocationChanger.conf"
-SCRIPT_DIR="$DOTFILE_DIR/Scripts"
-LOGFILE="$HOME/Library/Logs/LocationChanger.log"
+DOTFILE_DIR="${HOME}/.locations"
+CONFIG_FILE="${DOTFILE_DIR}/LocationChanger.conf"
+SCRIPT_DIR="${DOTFILE_DIR}/Scripts"
+LOG_FILE="${HOME}/Library/Logs/LocationChanger.log"
 
-# Truncate logfile
-lines=$(wc -l < "$LOGFILE")
+# Truncate LOG_FILE
+lines=$(wc -l < "$LOG_FILE")
 if [ "$lines" -gt 300 ]; then
     temp=$(mktemp)
-    tail -n +200 "$LOGFILE" > "$temp"
-    rm "$LOGFILE"
-    mv "$temp" "$LOGFILE"
+    tail -n +200 "$LOG_FILE" > "$temp"
+    rm "$LOG_FILE"
+    mv "$temp" "$LOG_FILE"
 fi
 
-exec > "$LOGFILE" 2>&1
+exec >> "$LOG_FILE" 2>&1
 
 sleep 3
 
@@ -103,7 +103,7 @@ elif [ -z "$NEW_LOCATION" ] && echo "$LOCATION_NAMES" | grep -q "^${DEFAULT_LOCA
     fi
 # If we arrived here, something went awry
 elif [ -z "$NEW_LOCATION" ]; then
-    NOTIFICATION_STRING="Something went wrong trying to automatically switch Locations. Please consult the log at: ${LOGFILE}"
+    NOTIFICATION_STRING="Something went wrong trying to automatically switch Locations. Please consult the log at: ${LOG_FILE}"
     ts "Location '${SSID}' and default Location '${DEFAULT_LOCATION}' were not found. The following Locations are available:%n${LOCATION_NAMES}"
     exit 1
 fi
@@ -121,9 +121,9 @@ if [ "$NEW_LOCATION" != "" ]; then
 
     if [ "$NEW_LOCATION" != "$CURRENT_LOCATION" ]; then
         ts "Changing the Location to '${NEW_LOCATION}'"
-        ts "$(scselect "${NEW_LOCATION}")"
+        ts "$(scselect "$NEW_LOCATION")"
         if [ ${?} -ne 0 ]; then
-            NOTIFICATION_STRING="Something went wrong trying to automatically switch Location. Please consult the log at: ${LOGFILE}"
+            NOTIFICATION_STRING="Something went wrong trying to automatically switch Location. Please consult the log at: ${LOG_FILE}"
         fi
 
         if [ "$ENABLE_SCRIPTS" -ge 1 ]; then
