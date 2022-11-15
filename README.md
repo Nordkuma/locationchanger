@@ -26,24 +26,7 @@ The default Location name can be changed by editing the `DEFAULT_LOCATION` varia
 
 ## Advanced Usage
 
-*Location Changer* will select the Location to change to using the following precedence:
-
-1. A manually configured Location
-2. A Location name that matches the SSID
-3. The default Location
-
-### Manually Configuring Locations
-
-*Location Changer* includes support for manually mapping Locations to Wi-Fi SSIDs.
-This is useful, e.g., if you'd like to have a Location name that does not match the SSID or would like to use a Location for more than one SSID.
-
-One example might be if your home Wi-Fi network is broadcasted on both 2.4GHz and 5GHz as `Home Wi-Fi` and `Home Wi-Fi 5G`, respectively.
-Instead of maintaining Locations for each SSID, a user can manually configure the same Location to be used with both.
-
-*Location Changer* can also be disabled for certain Locations.
-This is useful, e.g., if you want to set Location manually and don't want it to be automatically changed back.
-
-Configuration happens in `${HOME}/.locations/LocationChanger.conf` by default.
+*Location Changer*'s configuration happens in `${HOME}/.locations/LocationChanger.conf` by default.
 On installation a default config file is generated.
 The config file is in ini-format and contains the sections: `General`, `Automatic` and `Manual`.
 
@@ -70,13 +53,31 @@ ENABLE_NOTIFICATIONS=1
 ENABLE_SCRIPTS=1
 
 [Automatic]
-SSID=Location
 Home Wi-Fi=Home
-SSID With Spaces=Location Name With Spaces
+Home Wi-Fi 5G=Home
 
 [Manual]
-Wi-Fi Only
+Wi-Fi only
 ```
+
+More detailed descriptions of these features are provided in the following sections.
+
+### Manually Configuring Locations
+
+*Location Changer* will select the Location to change to using the following precedence:
+
+1. A manually configured Location
+2. A Location name that matches the SSID
+3. The default Location
+
+*Location Changer* includes support for manually mapping Locations to Wi-Fi SSIDs.
+This is useful, e.g., if you'd like to have a Location name that does not match the SSID or would like to use a Location for more than one SSID.
+
+One example might be if your home Wi-Fi network is broadcasted on both 2.4GHz and 5GHz as `Home Wi-Fi` and `Home Wi-Fi 5G`, respectively.
+Instead of maintaining Locations for each SSID, a user can manually configure the same Location to be used with both.
+
+*Location Changer* can also be disabled for certain Locations.
+This is useful, e.g., if you want to set Location manually and don't want it to be automatically changed back.
 
 ### Notifications
 
