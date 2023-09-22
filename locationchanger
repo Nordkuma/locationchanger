@@ -4,7 +4,7 @@
 DEFAULT_LOCATION='Automatic'
 ENABLE_NOTIFICATIONS=1
 ENABLE_SCRIPTS=1
-DOTFILE_DIR="${HOME}/.locations"
+DOTFILE_DIR="${HOME}/.locationchanger"
 CONFIG_FILE="${DOTFILE_DIR}/LocationChanger.conf"
 SCRIPT_DIR="${DOTFILE_DIR}/Scripts"
 LOG_FILE="${HOME}/Library/Logs/LocationChanger.log"

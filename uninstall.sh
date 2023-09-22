@@ -4,7 +4,7 @@ INSTALL_DIR="/usr/local/bin"
 SCRIPT_FILE="${INSTALL_DIR}/locationchanger"
 LAUNCH_AGENTS_DIR="${HOME}/Library/LaunchAgents"
 PLIST_FILE="${LAUNCH_AGENTS_DIR}/LocationChanger.plist"
-DOTFILE_DIR="${HOME}/.locations"
+DOTFILE_DIR="${HOME}/.locationchanger"
 LOG_FILE="${HOME}/Library/Logs/LocationChanger.log"
 
 echo "This will uninstall LocationChanger and its config files and scripts from your Mac.\n"

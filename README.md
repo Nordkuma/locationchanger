@@ -26,7 +26,7 @@ The default Location name can be changed by editing the `DEFAULT_LOCATION` varia
 
 ## Advanced Usage
 
-*Location Changer*'s configuration happens in `${HOME}/.locations/LocationChanger.conf` by default.
+*Location Changer*'s configuration happens in `${HOME}/.locationchanger/LocationChanger.conf` by default.
 On installation a default config file is generated.
 The config file is in ini-format and contains the sections: `General`, `Automatic` and `Manual`.
 
@@ -95,7 +95,7 @@ The following values are accepted:
 *Location Changer* includes support for running custom scripts when switching Locations.
 Scripts should be:
 
-* installed into the directory `${HOME}/.locations/Scripts`
+* installed into the directory `${HOME}/.locationchanger/Scripts`
 * named identically to the Location (e.g. `Home Wi-Fi` and not `Home Wi-Fi.sh`; if using manually configured Locations, please ensure the name matches the Location and not the SSID)
 * be executable
 
@@ -112,7 +112,7 @@ The following values are accepted:
 #### Examples
 
 You may want to set your computer to require a password to unlock while at work.
-By creating a script that matches the work Location name (e.g. `${HOME}/.locations/Scripts/Work`), this script can perform that configuration automatically when changing to the `Work` Location.
+By creating a script that matches the work Location name (e.g. `${HOME}/.locationchanger/Scripts/Work`), this script can perform that configuration automatically when changing to the `Work` Location.
 
 ```bash
 #!/usr/bin/env bash
@@ -123,8 +123,8 @@ osascript -e 'tell application "System Events" to set require password to wake o
 ```
 
 You may also want to create a script that reverses those changes when you're at home, so you don't have to enter your password to unlock your computer.
-You can save this as `${HOME}/.locations/Scripts/Home` if your home's SSID is `Home` or you have manually configured the `Home` Location to be used for your home's Wi-Fi SSID.
-Alternatively, it could be saved to your default Location (`Automatic`, by default) if using the default Location at home: `${HOME}/.locations/Scripts/Automatic`.
+You can save this as `${HOME}/.locationchanger/Scripts/Home` if your home's SSID is `Home` or you have manually configured the `Home` Location to be used for your home's Wi-Fi SSID.
+Alternatively, it could be saved to your default Location (`Automatic`, by default) if using the default Location at home: `${HOME}/.locationchanger/Scripts/Automatic`.
 
 ```bash
 #!/usr/bin/env bash
@@ -150,7 +150,7 @@ Sample output:
 [2018-03-05 06:23:18] Will switch the Location to 'DHCP' (found in configuration file)
 [2018-03-05 06:23:18] Changing the Location to 'DHCP'
 [2018-03-05 06:23:18] CurrentSet updated to 3BA418DE-3C72-2EAB-A8A6-B71C42189204 (DHCP)
-[2018-03-05 06:23:19] Running script: '/Users/username/.locations/DHCP'
+[2018-03-05 06:23:19] Running script: '/Users/username/.locationchanger/DHCP'
 ```
 
 ## Uninstall

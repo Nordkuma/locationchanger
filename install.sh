@@ -4,7 +4,7 @@ INSTALL_DIR="/usr/local/bin"
 SCRIPT_FILE="locationchanger"
 LAUNCH_AGENTS_DIR="${HOME}/Library/LaunchAgents"
 PLIST_FILE="${LAUNCH_AGENTS_DIR}/LocationChanger.plist"
-DOTFILE_DIR="${HOME}/.locations"
+DOTFILE_DIR="${HOME}/.locationchanger"
 
 function copyScript() {
   echo "Copying script and making it executable"
