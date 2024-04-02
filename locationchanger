@@ -33,7 +33,7 @@ parse_config() {
 }
 
 # Get the SSID of the current Wi-Fi network
-SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep ' SSID' | cut -d : -f 2- | sed 's/^[ ]*//')
+SSID=$(networksetup -getairportnetwork en0 | cut -d : -f 2- | sed 's/^[ ]*//')
 
 # Get the currently selected Location
 CURRENT_LOCATION=$(scselect | tail -n +2 | grep -E '^\ +\*' | cut -d \( -f 2- | sed 's/)$//')
