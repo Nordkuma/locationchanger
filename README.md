@@ -7,7 +7,7 @@ It can also run a custom script to performadditional actions when changing the L
 
 ## Installation & Updates
 
-1. Clone/Download this project: `git clone https://github.com/srkm1a1/locationchanger.git`
+1. Clone/Download this project: `git clone https://github.com/Nordkuma/locationchanger.git`
 1. `cd locationchanger`
 1. `./install.sh`
 
