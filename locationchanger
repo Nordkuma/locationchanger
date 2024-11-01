@@ -33,7 +33,7 @@ parse_config() {
 }
 
 # Get the SSID of the current Wi-Fi network
-SSID=$(networksetup -getairportnetwork en0 | cut -d : -f 2- | sed 's/^[ ]*//')
+SSID=$(system_profiler SPAirPortDataType | grep -A2 'Status: Connected' | tail -n1 | sed 's/:$//' | xargs)
 
 # Get the currently selected Location
 CURRENT_LOCATION=$(scselect | tail -n +2 | grep -E '^\ +\*' | cut -d \( -f 2- | sed 's/)$//')
